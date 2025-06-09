@@ -1,0 +1,52 @@
+name: Autoevaluación de Ejercicios con nombres adecuados
+on: [push]
+
+jobs:
+  test-js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Verificar nombres y ejecutar tests en JavaScript
+        run: |
+          cd ejercicios-js/
+          # Verificar nombres de archivos
+          for i in {1..10}; do
+            if [ ! -f "ejercicio$i.js" ]; then
+              echo "❌ Falta el archivo: ejercicio$i.js"
+              exit 1
+            fi
+          done
+          # Ejecutar tests con assert (ejemplo para ejercicio1.js)
+          echo "const assert = require('assert');" > test.js
+          echo "const { suma } = require('./ejercicio1.js');" >> test.js
+          echo "assert.strictEqual(suma(2, 3), 5);" >> test.js
+          node test.js || exit 1
+
+  test-py:
+    needs: test-js
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verificar nombres y ejecutar tests en Python
+        run: |
+          cd ejercicios-py/
+          # Verificar nombres de archivos
+          for i in {1..10}; do
+            if [ ! -f "ejercicio$i.py" ]; then
+              echo "❌ Falta el archivo: ejercicio$i.py"
+              exit 1
+            fi
+          done
+          # Ejecutar tests con assert (ejemplo para ejercicio1.py)
+          echo 'def test_suma():' > test.py
+          echo '    assert suma(2, 3) == 5' >> test.py
+          echo 'test_suma()' >> test.py
+          python test.py || exit 1

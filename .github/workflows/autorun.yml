@@ -19,6 +19,7 @@ jobs:
           done
 
   test-py:
+    needs: test-js
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
