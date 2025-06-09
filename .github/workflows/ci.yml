@@ -11,5 +11,5 @@ jobs:
 
   Ejecutar:
     name: Probar los archivos
-    needs: VerificarNombres
+    needs: Verificar
     uses: ./.github/workflows/autorun.yml
