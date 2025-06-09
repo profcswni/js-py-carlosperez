@@ -1,0 +1,15 @@
+name: Verificaciones en GitHub Actions
+
+on:
+  push:
+
+jobs:
+  Verificar:
+    name: Nombres de Archivos
+    uses: ./.github/workflows/filenames.yml
+
+
+  Ejecutar:
+    name: Probar los archivos
+    needs: VerificarNombres
+    uses: ./.github/workflows/autorun.yml

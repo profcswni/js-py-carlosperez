@@ -1,5 +1,5 @@
 name: Autoevaluación de Ejercicios
-on: [push]  # Se ejecuta en cada push
+on: [workflow_call]
 
 jobs:
   test-js:

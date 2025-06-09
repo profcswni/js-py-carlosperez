@@ -1,5 +1,5 @@
-name: Autoevaluación de Ejercicios con nombres adecuados
-on: [push]
+name: Autoevaluación de ejercicios con nombres adecuados
+on: [workflow_call]
 
 jobs:
   test-js:
